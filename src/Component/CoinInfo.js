@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useMatch, useParams } from "react-router";
+import { useMatch, useParams, useRouteError } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FetchCoinInfo } from "./api/CoinApi";
 import CoinChart from "./CoinChart";
 import CoinPrice from "./CoinPrice";
+import NotFoundCoin from "./NotFoundCoin";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -81,39 +82,51 @@ const Tab = styled.div`
 const CoinInfo = () => {
   const [coinInfo, setCoinInfo] = useState({});
   const [loadingState, setLoadingState] = useState(false);
+  const [notFoundCoin, setNotFoundCoin] = useState(false);
   const { coinId } = useParams();
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
   useEffect(() => {
-    FetchCoinInfo(coinId).then((json) => {
-      setCoinInfo(json);
-      setLoadingState(true);
-    });
+    FetchCoinInfo(coinId)
+      .then((data) => {
+        setCoinInfo(data);
+        setLoadingState(true);
+      })
+      .catch((err) => {
+        console.error(err.message);
+        setNotFoundCoin(true);
+      });
   }, [coinId]);
   return (
-    <Wrapper>
-      {loadingState ? (
-        <CoinBoard>
-          <Head>
-            <Logo logo={coinInfo.logo}></Logo>
-            <Title>{coinInfo.name}</Title>
-            <Rank>{coinInfo.rank}Rank</Rank>
-          </Head>
-          <Description>
-            <span>Description</span>
-            <span>{coinInfo.description}</span>
-          </Description>
-          <Tab>
-            <Link to="price">Price</Link>
-            <Link to="chart">Chart</Link>
-          </Tab>
-        </CoinBoard>
+    <>
+      {notFoundCoin ? (
+        <NotFoundCoin />
       ) : (
-        <Loader>Loading...</Loader>
+        <Wrapper>
+          {loadingState ? (
+            <CoinBoard>
+              <Head>
+                <Logo logo={coinInfo.logo}></Logo>
+                <Title>{coinInfo.name}</Title>
+                <Rank>{coinInfo.rank}Rank</Rank>
+              </Head>
+              <Description>
+                <span>Description</span>
+                <span>{coinInfo.description}</span>
+              </Description>
+              <Tab>
+                <Link to="price">Price</Link>
+                <Link to="chart">Chart</Link>
+              </Tab>
+            </CoinBoard>
+          ) : (
+            <Loader>Loading...</Loader>
+          )}
+          {priceMatch ? <CoinPrice coinId={priceMatch.params.coinId} /> : null}
+          {chartMatch ? <CoinChart coinId={chartMatch.params.coinId} /> : null}
+        </Wrapper>
       )}
-      {priceMatch ? <CoinPrice coinId={priceMatch.params.coinId} /> : null}
-      {chartMatch ? <CoinChart coinId={chartMatch.params.coinId} /> : null}
-    </Wrapper>
+    </>
   );
 };
 

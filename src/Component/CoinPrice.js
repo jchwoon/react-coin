@@ -36,10 +36,12 @@ const CoinPrice = ({ coinId }) => {
   const [coinPrice, setCoinPrice] = useState({});
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    FetchCoinToday(coinId).then((json) => {
-      setCoinPrice(json[0]);
-      setLoading(true);
-    });
+    FetchCoinToday(coinId)
+      .then((json) => {
+        setCoinPrice(json[0]);
+        setLoading(true);
+      })
+      .catch((err) => console.error(err.message));
   }, [coinId]);
   return (
     <Price>

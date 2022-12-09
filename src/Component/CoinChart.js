@@ -16,9 +16,11 @@ const CoinChart = ({ coinId }) => {
   const endDate = Math.floor(Date.now() / 1000);
   const startDate = endDate - 60 * 60 * 23;
   useEffect(() => {
-    FetchCoinOHLC(coinId, startDate, endDate).then((json) => {
-      setChartData(json);
-    });
+    FetchCoinOHLC(coinId, startDate, endDate)
+      .then((json) => {
+        setChartData(json);
+      })
+      .catch((err) => console.error(err.message));
   }, [coinId, endDate, startDate]);
 
   return (
