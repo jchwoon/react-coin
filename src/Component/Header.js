@@ -25,7 +25,7 @@ const Header = ({ changeMode, mode }) => {
   return (
     <HeadBar>
       <HomeLink>
-        <Link to="/">ChaeCoin</Link>
+        <Link to="/react-coins">ChaeCoin</Link>
       </HomeLink>
       <Mode onClick={changeMode}>{mode ? "Dark" : "Light"}</Mode>
     </HeadBar>

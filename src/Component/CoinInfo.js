@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useMatch, useParams, useRouteError } from "react-router";
+import { useMatch, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FetchCoinInfo } from "./api/CoinApi";
@@ -84,8 +84,8 @@ const CoinInfo = () => {
   const [loadingState, setLoadingState] = useState(false);
   const [notFoundCoin, setNotFoundCoin] = useState(false);
   const { coinId } = useParams();
-  const priceMatch = useMatch("/:coinId/price");
-  const chartMatch = useMatch("/:coinId/chart");
+  const priceMatch = useMatch("react-coins/:coinId/price");
+  const chartMatch = useMatch("react-coins/:coinId/chart");
   useEffect(() => {
     FetchCoinInfo(coinId)
       .then((data) => {
