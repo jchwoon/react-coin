@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/react-coin/static/js/main.a98a69cd.js",
-    "static/js/787.d54e0d25.chunk.js": "/react-coin/static/js/787.d54e0d25.chunk.js",
-    "index.html": "/react-coin/index.html",
-    "main.a98a69cd.js.map": "/react-coin/static/js/main.a98a69cd.js.map",
-    "787.d54e0d25.chunk.js.map": "/react-coin/static/js/787.d54e0d25.chunk.js.map"
+    "main.js": "/react-coins/static/js/main.6792072d.js",
+    "static/js/787.d54e0d25.chunk.js": "/react-coins/static/js/787.d54e0d25.chunk.js",
+    "index.html": "/react-coins/index.html",
+    "main.6792072d.js.map": "/react-coins/static/js/main.6792072d.js.map",
+    "787.d54e0d25.chunk.js.map": "/react-coins/static/js/787.d54e0d25.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.a98a69cd.js"
+    "static/js/main.6792072d.js"
   ]
 }
